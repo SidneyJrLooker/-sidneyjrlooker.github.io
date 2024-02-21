@@ -4,34 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSON to Plain Text Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin: 0;
+        }
+        h2 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: monospace;
+            background-color: #fff;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            margin: 10px 0 20px 0;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    
     <script>
         function convertToJson() {
-            // Get JSON text from the input text area
             var jsonText = document.getElementById('jsonInput').value;
-            
             try {
-                // Parse the JSON to ensure it's valid and then stringify it to convert \n to actual newlines
                 var obj = JSON.parse(jsonText);
-                var plainText = JSON.stringify(obj, null, 2); // The '2' argument adds indentation for readability
-                
-                // Replace escaped newline characters with actual newlines for display
+                var plainText = JSON.stringify(obj, null, 2);
                 plainText = plainText.replace(/\\n/g, '\n');
-                
-                // Set the converted text to the output text area
                 document.getElementById('textOutput').value = plainText;
             } catch(e) {
-                // If an error occurs (e.g., invalid JSON), display it
                 document.getElementById('textOutput').value = 'Error: ' + e.message;
             }
         }
     </script>
 </head>
 <body>
-    <h2>JSON to Plain Text Converter</h2>
-    <textarea id="jsonInput" rows="10" cols="50" placeholder="Paste your JSON text here..."></textarea>
-    <br>
-    <button onclick="convertToJson()">Convert to Plain Text</button>
-    <br>
-    <textarea id="textOutput" rows="10" cols="50" placeholder="Converted plain text will appear here..."></textarea>
+    <div class="container">
+        <h2>JSON to Plain Text Converter for LookML Dashboards</h2>
+        <p style="font-weight: normal;">- This is a static HTML file and can be used locally.</p>
+        <p style="font-weight: normal;">- Meant for converting JSON Object into a YAML formatting for LookML dashboards in order to assist users that don't have a developer background</p>
+        <p style="font-weight: normal;">- You may need to remove " and/or - symbols from the first and last line of the converted text for it to work.</p>
+        <textarea id="jsonInput" rows="10" placeholder="Paste your JSON text here..."></textarea>
+        <button onclick="convertToJson()">Convert to Plain Text</button>
+        <textarea id="textOutput" rows="10" placeholder="Converted plain text will appear here..."></textarea>
+    </div>
 </body>
 </html>
