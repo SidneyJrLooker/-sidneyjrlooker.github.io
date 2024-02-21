@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON to Plain Text Converter</title>
+    <script>
+        function convertToJson() {
+            // Get JSON text from the input text area
+            var jsonText = document.getElementById('jsonInput').value;
+            
+            try {
+                // Parse the JSON to ensure it's valid and then stringify it to convert \n to actual newlines
+                var obj = JSON.parse(jsonText);
+                var plainText = JSON.stringify(obj, null, 2); // The '2' argument adds indentation for readability
+                
+                // Replace escaped newline characters with actual newlines for display
+                plainText = plainText.replace(/\\n/g, '\n');
+                
+                // Set the converted text to the output text area
+                document.getElementById('textOutput').value = plainText;
+            } catch(e) {
+                // If an error occurs (e.g., invalid JSON), display it
+                document.getElementById('textOutput').value = 'Error: ' + e.message;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>JSON to Plain Text Converter</h2>
+    <textarea id="jsonInput" rows="10" cols="50" placeholder="Paste your JSON text here..."></textarea>
+    <br>
+    <button onclick="convertToJson()">Convert to Plain Text</button>
+    <br>
+    <textarea id="textOutput" rows="10" cols="50" placeholder="Converted plain text will appear here..."></textarea>
+</body>
+</html>
